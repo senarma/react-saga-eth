@@ -40,7 +40,7 @@ const DrawerList = props => {
     ]
     return(
         <Fragment>
-            <p align="center">Company</p>     
+            <p align="center">Few Nickels</p>     
             <Divider />
             <List>
             {menuOpstions.map((text, index) => (

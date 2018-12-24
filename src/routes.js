@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import Web3Provider from './Web3Provider';
 import UserDashboardContainer from './containers/UserDashboardContainer'
 
-const PrivateRoute = ({walletLoad, userAddress, component: Component, ...rest}) => (
+
+const PrivateRoute = ({walletLoad, component: Component, ...rest}) => (
     <Route {...rest} render={props => (
         walletLoad ? (
             <Component {...props} />
@@ -19,11 +20,8 @@ const Routes = props => (
             <Switch>
                 
                 <Route exact path="/" component={Web3Provider} />
-
-                <PrivateRoute path="/dashboard" 
-                walletLoad={props.walletLoad} 
-                userAddress={props.userAddress}
-                component={UserDashboardContainer} />
+               
+                <PrivateRoute path="/dashboard" walletLoad={props.walletLoad} component={UserDashboardContainer} />
                 
                 <Route path='*' component={() => {return(<h1>404 error</h1>)}} />
 
