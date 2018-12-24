@@ -7,7 +7,7 @@ import { CircularProgress, Grid, CardHeader, Card, CardContent } from '@material
 
 
 class Web3Provider extends Component{
-    componentWillMount() {
+    componentDidMount() {
       this.props.sagaWeb3Load()
     }
 

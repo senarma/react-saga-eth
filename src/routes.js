@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Web3Provider from './Web3Provider';
 import UserDashboardContainer from './containers/UserDashboardContainer'
+import Drawer from './containers/Drawer';
 
 const PrivateRoute = ({walletLoad, component: Component, ...rest}) => (
     <Route {...rest} render={props => (
@@ -17,8 +18,13 @@ const PrivateRoute = ({walletLoad, component: Component, ...rest}) => (
 const Routes = props => (
         <BrowserRouter>
             <Switch>
+                
                 <Route exact path="/" component={Web3Provider} />
+
                 <PrivateRoute path="/dashboard" walletLoad={props.walletLoad} component={UserDashboardContainer} />
+                
+                <Route path='*' component={() => {return(<h1>404 error</h1>)}} />
+
             </Switch>
         </BrowserRouter>
 )
