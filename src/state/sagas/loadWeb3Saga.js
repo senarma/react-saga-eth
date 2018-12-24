@@ -1,10 +1,10 @@
 import Web3 from'web3'
-import { takeLatest, put, call, take, all} from 'redux-saga/effects'
-import { fetchWeb3, invalidWeb3, noWeb3, denyWeb3, waitingAprovalWeb3 } from './actions/LoadWeb3Actions'
+import { fetchWeb3, invalidWeb3, noWeb3, denyWeb3, waitingAprovalWeb3 } from './../actions/LoadWeb3Actions'
+import { put, call, all } from 'redux-saga/effects'
 
-function* loadUserWallet(){
+
+function* loadWeb3Saga(){
     let web3
-
         if(!window.ethereum && !window.web3){
             return yield put(noWeb3())
         } else if (window.ethereum) {
@@ -12,7 +12,7 @@ function* loadUserWallet(){
           try{
             yield put(waitingAprovalWeb3())
             yield window.ethereum.enable()
-          }catch(err){
+          } catch(err){
             return  yield put(denyWeb3())
           }          
         } else if (window.web3) {
@@ -26,14 +26,9 @@ function* loadUserWallet(){
           const userBalance = yield call(web3.eth.getBalance, userAddress[0])
           console.log(network, userAddress, userBalance) 
           yield put(fetchWeb3(userAddress[0], network, userBalance))
-        }catch(err){
+        } catch(err){
           yield put(invalidWeb3(err))
         }                  
 }
 
-
-export default function* root() {
-    yield[
-        takeLatest('SAGA_LOAD_WEB3', loadUserWallet)
-    ]
-}
+export default loadWeb3Saga

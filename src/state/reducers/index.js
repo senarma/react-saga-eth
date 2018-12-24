@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import web3Redux from './reduceWeb3';
+import web3Redux from './loadWeb3Reduce';
 
 
 
